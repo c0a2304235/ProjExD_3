@@ -116,14 +116,14 @@ class Bomb:
 
 
 class Beam:
-    def __init__(self):
+    def __init__(self, bird: Bird):
         """
         あとで
         """
         self.img = pg.transform.rotozoom(pg.image.load("fig/beam.png"), 0, 2.0)
         self.rct: pg.Rect = self.img.get_rect()  # ビーム画像rect
-        self.rct.left = Bird.rct.right
-        self.rct.century
+        self.rct.left = bird.rct.right  # ビームの左座標にこうかとんの右座標を設定する
+        self.rct.centery = bird.rct.centery
         self.vx, self.vy = +5, 0
 
     def update(self, screen: pg.Surface):
@@ -132,12 +132,8 @@ class Beam:
         引数 screen：画面Surface
         """
         if check_bound(self.rct) == (True, True):
-        if not yoko:
-            self.vx *= -1
-        if not tate:
-            self.vy *= -1
-        self.rct.move_ip(self.vx, self.vy)
-        screen.blit(self.img, self.rct)
+            self.rct.move_ip(self.vx, self.vy)
+            screen.blit(self.img, self.rct)
 
 
 def main():
@@ -146,6 +142,7 @@ def main():
     bg_img = pg.image.load("fig/pg_bg.jpg")
     bird = Bird((900, 400))
     bomb = Bomb((255, 0, 0), 10)
+    beam = None
     clock = pg.time.Clock()
     tmr = 0
     while True:
@@ -167,7 +164,8 @@ def main():
         key_lst = pg.key.get_pressed()
         bird.update(key_lst, screen)
         bomb.update(screen)
-        beam.update(screen)
+        if beam is not None:
+            beam.update(screen)
         pg.display.update()
         tmr += 1
         clock.tick(50)
