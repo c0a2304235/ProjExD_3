@@ -141,7 +141,7 @@ class Score:
     """
     スコア表示に関するクラス
     """
-    def __init__(self, x, y):
+    def __init__(self, x, y):  # 引数の値を、表示する文字列の中心座標とする
         """
         文字列のSurfaceの設定
         """
@@ -165,7 +165,7 @@ def main():
     bird = Bird((900, 400))
     bombs = [Bomb((255, 0, 0), 10) for _ in range(NUM_OF_BOMBS)]
     beam = None
-    score = Score(100, 50)
+    score = Score(100, 50)  # Scoreメソッドの初期化
     clock = pg.time.Clock()
     tmr = 0
     while True:
